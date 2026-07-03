@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}About Us | Furnish Template{% endblock %}
+
+{% block content %}
+
+  <!-- About Our Store -->
+  <section class="px-6 pt-16 pb-10 text-center">
+    <h1 class="text-4xl md:text-5xl font-normal text-neutral-900 mb-6">
+      About {{ company.name|default:"Our Store" }}
+    </h1>
+    {% if company.tagline %}
+      <p class="text-neutral-500 leading-relaxed max-w-xl mx-auto">{{ company.tagline }}</p>
+    {% endif %}
+  </section>
+
+  <!-- Our Mission -->
+  {% if company %}
+  <section class="px-6 md:px-16 pb-24">
+    <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+      {% if company.hero_image %}
+        <img src="{{ company.hero_image.url }}" alt="{{ company.name }}" class="w-full h-[420px] object-cover" />
+      {% endif %}
+
+      <div>
+        <h2 class="text-3xl md:text-4xl font-normal text-neutral-900 mb-6">
+          {% if company.founded_year %}Since {{ company.founded_year }}{% else %}Our Story{% endif %}
+        </h2>
+        {% if company.about_text %}
+          <p class="text-neutral-500 leading-relaxed mb-5">{{ company.about_text|linebreaks }}</p>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+  {% endif %}
+
+  <!-- Vision & Mission -->
+  {% if vision_mission %}
+  <section class="bg-neutral-100 px-6 md:px-16 py-20">
+    <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
+
+      {% if vision_mission.vision_text %}
+      <div class="bg-white px-8 py-10">
+        {% if vision_mission.vision_image %}
+          <img src="{{ vision_mission.vision_image.url }}" alt="{{ vision_mission.vision_title }}"
+               class="w-full h-56 object-cover mb-6" />
+        {% endif %}
+        <h3 class="text-2xl font-medium mb-4">{{ vision_mission.vision_title }}</h3>
+        <p class="text-sm text-neutral-500 leading-relaxed">{{ vision_mission.vision_text|linebreaks }}</p>
+      </div>
+      {% endif %}
+
+      {% if vision_mission.mission_text %}
+      <div class="bg-white px-8 py-10">
+        {% if vision_mission.mission_image %}
+          <img src="{{ vision_mission.mission_image.url }}" alt="{{ vision_mission.mission_title }}"
+               class="w-full h-56 object-cover mb-6" />
+        {% endif %}
+        <h3 class="text-2xl font-medium mb-4">{{ vision_mission.mission_title }}</h3>
+        <p class="text-sm text-neutral-500 leading-relaxed">{{ vision_mission.mission_text|linebreaks }}</p>
+      </div>
+      {% endif %}
+
+    </div>
+  </section>
+  {% endif %}
+
+  <!-- Meet Our Team
+  <section class="px-6 md:px-16 py-24 text-center">
+    <h2 class="text-3xl md:text-4xl font-normal text-neutral-900 mb-14">Meet Our Team</h2>
+
+    <div class="max-w-4xl mx-auto grid grid-cols-2 sm:grid-cols-4 gap-10">
+      <div>
+        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=300&auto=format&fit=crop"
+             alt="Anna Smith" class="w-28 h-28 rounded-full object-cover mx-auto mb-5" />
+        <h3 class="font-medium">Anna Smith</h3>
+        <p class="text-sm text-neutral-500">Creative Director</p>
+      </div>
+      <div>
+        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=300&auto=format&fit=crop"
+             alt="Michael Brown" class="w-28 h-28 rounded-full object-cover mx-auto mb-5" />
+        <h3 class="font-medium">Michael Brown</h3>
+        <p class="text-sm text-neutral-500">Product Designer</p>
+      </div>
+      <div>
+        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=300&auto=format&fit=crop"
+             alt="Sarah Johnson" class="w-28 h-28 rounded-full object-cover mx-auto mb-5" />
+        <h3 class="font-medium">Sarah Johnson</h3>
+        <p class="text-sm text-neutral-500">Marketing Head</p>
+      </div>
+      <div>
+        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=300&auto=format&fit=crop"
+             alt="David Lee" class="w-28 h-28 rounded-full object-cover mx-auto mb-5" />
+        <h3 class="font-medium">David Lee</h3>
+        <p class="text-sm text-neutral-500">Operations Lead</p>
+      </div>
+    </div>
+  </section> -->
+
+{% endblock %}

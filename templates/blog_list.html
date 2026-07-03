@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}Blog | Furnish Template{% endblock %}
+
+{% block content %}
+
+  <section class="px-6 pt-16 pb-10 text-center">
+    <h1 class="text-4xl md:text-5xl font-normal text-neutral-900 mb-6">Our Blog</h1>
+    <p class="text-neutral-500 leading-relaxed max-w-xl mx-auto">
+      Ideas, inspiration, and stories from the world of home textiles.
+    </p>
+  </section>
+
+  <section class="px-6 md:px-16 pb-24">
+    <div class="max-w-6xl mx-auto">
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {% for post in posts %}
+          <article class="group">
+            <div class="bg-neutral-100 aspect-[4/3] flex items-center justify-center overflow-hidden mb-5">
+              {% if post.cover_image %}
+                <img src="{{ post.cover_image.url }}" alt="{{ post.title }}"
+                     class="w-full h-full object-cover group-hover:scale-105 transition duration-300" />
+              {% else %}
+                <div class="w-3/4 h-3/4 flex items-center justify-center text-neutral-300 text-xs">No image</div>
+              {% endif %}
+            </div>
+            <p class="text-xs tracking-wider text-neutral-400 mb-2">{{ post.created_at|date:"F j, Y" }}</p>
+            <h2 class="text-xl font-medium text-neutral-900 mb-2">{{ post.title }}</h2>
+            <p class="text-sm text-neutral-500 leading-relaxed">{{ post.content|truncatewords:25 }}</p>
+          </article>
+        {% empty %}
+          <p class="text-neutral-500 col-span-full text-center py-16">No blog posts yet.</p>
+        {% endfor %}
+      </div>
+
+      <!-- Pagination -->
+      {% if is_paginated %}
+      <div class="flex justify-center items-center gap-2 mt-16 text-sm font-medium">
+        {% if page_obj.has_previous %}
+          <a href="?page={{ page_obj.previous_page_number }}"
+             class="w-9 h-9 flex items-center justify-center border border-neutral-200 hover:border-neutral-900">&laquo;</a>
+        {% else %}
+          <span class="w-9 h-9 flex items-center justify-center border border-neutral-200 opacity-40 cursor-not-allowed">&laquo;</span>
+        {% endif %}
+
+        {% for num in paginator.page_range %}
+          {% if num == page_obj.number %}
+            <span class="w-9 h-9 flex items-center justify-center border bg-neutral-900 text-white border-neutral-900">{{ num }}</span>
+          {% else %}
+            <a href="?page={{ num }}"
+               class="w-9 h-9 flex items-center justify-center border border-neutral-200 hover:border-neutral-900">{{ num }}</a>
+          {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+          <a href="?page={{ page_obj.next_page_number }}"
+             class="w-9 h-9 flex items-center justify-center border border-neutral-200 hover:border-neutral-900">&raquo;</a>
+        {% else %}
+          <span class="w-9 h-9 flex items-center justify-center border border-neutral-200 opacity-40 cursor-not-allowed">&raquo;</span>
+        {% endif %}
+      </div>
+      {% endif %}
+
+    </div>
+  </section>
+
+{% endblock %}

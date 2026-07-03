@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% block title %}Product List | Furnish Template{% endblock %}
+
+{% block content %}
+
+  <section class="px-6 pt-16 pb-10 text-center">
+    <h1 class="text-4xl md:text-5xl font-normal text-neutral-900 mb-6">Product List</h1>
+    
+  </section>
+
+  <section class="px-6 md:px-16 pb-24">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row gap-10">
+
+      <!-- Filters Sidebar -->
+      <aside class="w-full md:w-64 shrink-0">
+        <h2 class="text-lg font-semibold mb-5">Filters</h2>
+
+        <!-- Category (URL-based filter — links to ProductListView with category_slug kwarg) -->
+        <div class="bg-neutral-100 p-5 mb-4">
+          <p class="text-xs font-semibold tracking-wider text-neutral-500 mb-3">CATEGORY</p>
+          <ul class="space-y-2 text-sm">
+            <li>
+              <a href="{% url 'products' %}"
+                 class="{% if not active_category %}text-neutral-900 font-medium{% else %}text-neutral-600 hover:text-neutral-900{% endif %}">
+                All
+              </a>
+            </li>
+            {% for category in categories %}
+              <li>
+                <a href="{% url 'by_category' category.slug %}"
+                  class="{% if active_category == category.slug %}text-neutral-900 font-medium{% else %}text-neutral-600 hover:text-neutral-900{% endif %}">
+                  {{ category.name }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        <!-- Collections -->
+        {% if collections %}
+        <div class="bg-neutral-100 p-5 mb-4">
+          <p class="text-xs font-semibold tracking-wider text-neutral-500 mb-3">COLLECTION</p>
+          <ul class="space-y-2 text-sm">
+            {% for collection in collections %}
+              <li class="text-neutral-600">{{ collection.name }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+
+        {% if active_category %}
+          <a href="{% url 'products' %}"
+             class="block text-center w-full bg-neutral-900 text-white text-sm font-medium py-3.5 hover:bg-neutral-800 transition">
+            Clear Filters
+          </a>
+        {% endif %}
+      </aside>
+
+      <!-- Products -->
+      <div class="flex-1">
+        <p class="text-sm text-neutral-500 mb-6">
+          {{ paginator.count }} product{{ paginator.count|pluralize }} found
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {% for product in products %}
+            <a href="{% url 'detail' product.slug %}" class="group block">              <div class="bg-neutral-100 aspect-square flex items-center justify-center overflow-hidden">
+                {% with primary_image=product.get_primary_image %}
+                  {% if primary_image %}
+                    <img src="{{ primary_image.image.url }}" alt="{{ product.name }}"
+                         class="w-3/4 h-3/4 object-contain group-hover:scale-105 transition duration-300" />
+                  {% else %}
+                    <div class="w-3/4 h-3/4 flex items-center justify-center text-neutral-300 text-xs">No image</div>
+                  {% endif %}
+                {% endwith %}
+              </div>
+              <h3 class="text-lg font-medium mt-4 group-hover:text-orange-500 transition">{{ product.name }}</h3>
+              <p class="text-sm mt-1">
+                {% if product.old_price %}
+                  <span class="line-through text-neutral-400 mr-2">${{ product.old_price }}</span>
+                {% endif %}
+                <span class="text-neutral-900 font-medium">${{ product.price }}</span>
+              </p>
+            </a>
+          {% empty %}
+            <p class="text-neutral-500 col-span-full text-center py-16">No products found.</p>
+          {% endfor %}
+        </div>
+
+        <!-- Pagination (Django's built-in Paginator via ListView) -->
+        {% if is_paginated %}
+        <div class="flex justify-center items-center gap-2 mt-12 text-sm font-medium">
+          {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}"
+               class="w-9 h-9 flex items-center justify-center border border-neutral-200 hover:border-neutral-900">&laquo;</a>
+          {% else %}
+            <span class="w-9 h-9 flex items-center justify-center border border-neutral-200 opacity-40 cursor-not-allowed">&laquo;</span>
+          {% endif %}
+
+          {% for num in paginator.page_range %}
+            {% if num == page_obj.number %}
+              <span class="w-9 h-9 flex items-center justify-center border bg-neutral-900 text-white border-neutral-900">{{ num }}</span>
+            {% else %}
+              <a href="?page={{ num }}"
+                 class="w-9 h-9 flex items-center justify-center border border-neutral-200 hover:border-neutral-900">{{ num }}</a>
+            {% endif %}
+          {% endfor %}
+
+          {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}"
+               class="w-9 h-9 flex items-center justify-center border border-neutral-200 hover:border-neutral-900">&raquo;</a>
+          {% else %}
+            <span class="w-9 h-9 flex items-center justify-center border border-neutral-200 opacity-40 cursor-not-allowed">&raquo;</span>
+          {% endif %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+
+{% endblock %}

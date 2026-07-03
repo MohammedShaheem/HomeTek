@@ -1,0 +1,43 @@
+
+
+<header class="flex items-center justify-between px-6 md:px-16 py-6 border-b border-neutral-100">
+  <a href="{% url 'home' %}" class="leading-tight">
+    {% if site_company %}
+      <p class="font-bold tracking-wide text-sm">{{ site_company.name|upper }}</p>
+    {% else %}
+      <p class="font-bold tracking-wide text-sm -mt-1">TEMPLATE</p>
+    {% endif %}
+  </a>
+
+  <nav class="hidden md:flex items-center gap-10 text-sm font-medium tracking-wide">
+    <a href="{% url 'home' %}"
+       class="{% if request.resolver_match.url_name == 'home' %}text-neutral-900{% else %}text-neutral-500{% endif %} hover:text-orange-500">HOME</a>
+
+    <a href="{% url 'categories' %}"
+       class="{% if request.resolver_match.url_name == 'categories' %}text-neutral-900{% else %}text-neutral-500{% endif %} hover:text-orange-500">CATEGORIES</a>
+    <a href="{% url 'collection_list' %}"
+       class="{% if request.resolver_match.url_name == 'collections' %}text-neutral-900{% else %}text-neutral-500{% endif %} hover:text-orange-500">COLLECTIONS</a>
+
+    <a href="{% url 'about' %}"
+      class="{% if request.resolver_match.url_name == 'about' %}text-neutral-900{% else %}text-neutral-500{% endif %} hover:text-orange-500">ABOUT US</a>
+  
+      </nav>
+
+  
+</header>
+
+<!-- Mobile menu -->
+<div id="mobileMenu" class="hidden md:hidden flex-col border-b border-neutral-100 px-6 py-4 gap-4 text-sm font-medium tracking-wide">
+  <a href="{% url 'home' %}" class="block py-2 {% if request.resolver_match.url_name == 'home' %}text-neutral-900{% else %}text-neutral-500{% endif %}">HOME</a>
+  <a href="{% url 'about' %}" class="block py-2 {% if request.resolver_match.url_name == 'about' %}text-neutral-900{% else %}text-neutral-500{% endif %}">ABOUT US</a>
+  <a href="{% url 'categories' %}" class="block py-2 {% if request.resolver_match.url_name == 'categories' %}text-neutral-900{% else %}text-neutral-500{% endif %}">CATEGORIES</a>
+  <a href="{% url 'contact' %}" class="block py-2 {% if request.resolver_match.url_name == 'contact' %}text-neutral-900{% else %}text-neutral-500{% endif %}">CONTACT</a>
+</div>
+
+<script>
+  document.getElementById("mobileMenuBtn").addEventListener("click", function () {
+    var menu = document.getElementById("mobileMenu");
+    menu.classList.toggle("hidden");
+    menu.classList.toggle("flex");
+  });
+</script>

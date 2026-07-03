@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block title %}Contact Us | Furnish Template{% endblock %}
+
+{% block content %}
+
+  <!-- Page Heading -->
+  <section class="px-6 pt-16 pb-14 text-center">
+    <h1 class="text-4xl md:text-5xl font-normal text-neutral-900 mb-6">Contact Us</h1>
+    <p class="text-neutral-500 leading-relaxed max-w-lg mx-auto">
+      We'd love to hear from you! Get in touch with our team for any questions or feedback.
+    </p>
+  </section>
+
+  <!-- Get in Touch + Form -->
+  <section class="px-6 md:px-16 pb-16">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_1.6fr] gap-10">
+
+      <!-- Get in Touch -->
+      <div>
+        <h2 class="text-2xl md:text-3xl font-normal text-neutral-900 mb-5">Get in Touch</h2>
+        <p class="text-neutral-500 leading-relaxed mb-8">
+          Whether you have a question about our products, need assistance, or just want to talk furniture — we're here for you.
+        </p>
+
+        <div class="space-y-6">
+          <div class="flex items-start gap-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-orange-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2a7 7 0 00-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 00-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"/></svg>
+            <div>
+              <p class="text-xs font-semibold tracking-wider text-neutral-700">ADDRESS</p>
+              <p class="text-neutral-500 mt-1">123 Furniture Street, Mumbai, India</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-orange-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M2 5.5A1.5 1.5 0 013.5 4h17A1.5 1.5 0 0122 5.5v13a1.5 1.5 0 01-1.5 1.5h-17A1.5 1.5 0 012 18.5v-13zm2.2.5l7.8 6.2L19.8 6H4.2zM4 8.1V18h16V8.1l-8 6.3-8-6.3z"/></svg>
+            <div>
+              <p class="text-xs font-semibold tracking-wider text-neutral-700">EMAIL</p>
+              <p class="text-neutral-500 mt-1">support@furnish.com</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-orange-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24 11.36 11.36 0 003.55.57 1 1 0 011 1V20a1 1 0 01-1 1C10.4 21 3 13.6 3 4.5a1 1 0 011-1h3.5a1 1 0 011 1 11.36 11.36 0 00.57 3.55 1 1 0 01-.25 1.02l-2.2 2.22z"/></svg>
+            <div>
+              <p class="text-xs font-semibold tracking-wider text-neutral-700">PHONE</p>
+              <p class="text-neutral-500 mt-1">+91 98765 43210</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Send a Message -->
+      <div class="border border-neutral-200 p-8 md:p-10">
+        <h2 class="text-2xl md:text-3xl font-normal text-neutral-900 mb-8">Send a Message</h2>
+
+        <form id="contactForm" method="post" class="space-y-6">
+          {% csrf_token %}
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+              <label for="fullName" class="block text-sm mb-2">Full Name</label>
+              <input type="text" id="fullName" name="full_name" placeholder="Your name"
+                     class="w-full border border-neutral-300 px-4 py-3 text-sm outline-none focus:border-neutral-900" />
+            </div>
+            <div>
+              <label for="email" class="block text-sm mb-2">Email</label>
+              <input type="email" id="email" name="email" placeholder="you@example.com"
+                     class="w-full border border-neutral-300 px-4 py-3 text-sm outline-none focus:border-neutral-900" />
+            </div>
+          </div>
+
+          <div>
+            <label for="subject" class="block text-sm mb-2">Subject</label>
+            <input type="text" id="subject" name="subject" placeholder="Subject"
+                   class="w-full border border-neutral-300 px-4 py-3 text-sm outline-none focus:border-neutral-900" />
+          </div>
+
+          <div>
+            <label for="message" class="block text-sm mb-2">Message</label>
+            <textarea id="message" name="message" rows="6" placeholder="Write your message here..."
+                      class="w-full border border-neutral-300 px-4 py-3 text-sm outline-none focus:border-neutral-900 resize-y"></textarea>
+          </div>
+
+          <div class="flex justify-end">
+            <button type="submit" class="bg-neutral-900 text-white text-sm font-medium px-8 py-3.5 hover:bg-neutral-800 transition">
+              Send Message
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Map -->
+  <section class="px-6 md:px-16 pb-24">
+    <div class="max-w-6xl mx-auto">
+      <iframe
+        title="Mumbai Map"
+        class="w-full h-[380px] border border-neutral-200"
+        src="https://www.google.com/maps?q=Mumbai,Maharashtra,India&output=embed"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+  </section>
+
+{% endblock %}
+
+{% block extra_scripts %}
+  <script>
+    document.getElementById("contactForm").addEventListener("submit", function (e) {
+      // Remove this preventDefault once the Django view handles the POST and redirects/re-renders.
+      e.preventDefault();
+      alert("Thanks! Your message has been sent.");
+      this.reset();
+    });
+  </script>
+{% endblock %}

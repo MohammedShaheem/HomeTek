@@ -3,4 +3,4 @@ from django.http import HttpResponse
 # Create your views here.
 
 def social(request):
-    return HttpResponse('social')
+    return render(request,"about.html")

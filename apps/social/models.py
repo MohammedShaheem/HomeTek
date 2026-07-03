@@ -16,15 +16,9 @@ class SocialProfile(models.Model):
         choices=SocialPlatform.choices,
         unique=True,
     )
-
-    handle = models.CharField(max_length=100)
-
     url = models.URLField(max_length=500)
 
-    icon = models.CharField(
-        max_length=50,
-        blank=True,
-    )
+    icon = models.ImageField(upload_to='social_logo',blank=True,null=True)
 
     is_active = models.BooleanField(default=True)
 
