@@ -1,0 +1,507 @@
+{% extends "base.html" %}
+
+{% block title %}Hometex{% endblock %}
+
+{% block content %}
+
+  <!-- ============ HERO ============ -->
+<section class="relative">
+  <div class="ph w-full h-[420px] md:h-[560px]" style="background-image:url('{% if company.cover_image %}{{ company.cover_image.url }}{% else %}https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?q=80&w=1600&auto=format&fit=crop{% endif %}')"></div>
+
+  <!-- overlapping feature cards -->
+  <div class="max-w-[1300px] mx-auto px-6">
+    <div class="relative -mt-24 md:-mt-28 grid grid-cols-1 md:grid-cols-3 justify-items-center gap-x-1 gap-y-4 items-start">
+
+      {% for card in why_choose_us %}
+        <div class="group relative overflow-hidden w-86 bg-[#e9edf1]/95 backdrop-blur-sm shadow-lg rounded-xl min-h-[360px] p-8 flex flex-col items-center text-center transition duration-300 {% if forloop.counter == 2 %}md:-mt-8{% endif %}">
+
+          <!-- Shine Effect -->
+          <div class="absolute top-0 left-[-120%] h-full w-1/3 bg-gradient-to-r from-transparent via-white/60 to-transparent skew-x-12 group-hover:left-[120%] transition-all duration-700"></div>
+
+          <div class="relative z-10 flex flex-col items-center text-center">
+            <div class="w-16 h-16 rounded-full border-2 border-gray-800 flex items-center justify-center mb-5">
+              {% if card.icon == 'globe' %}
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="1.5"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12h18M12 3a14.5 14.5 0 010 18M12 3a14.5 14.5 0 000 18"/></svg>
+              {% elif card.icon == 'shield' %}
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="6" y="3" width="12" height="18" rx="1" stroke-width="1.5"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 8l1.5 1.5L14 6"/></svg>
+              {% else %}
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 17.3l-5.4 3 1.4-6-4.6-4 6-.5L12 4l2.6 5.8 6 .5-4.6 4 1.4 6z"/></svg>
+              {% endif %}
+            </div>
+            <h3 class="font-bold text-lg mb-3 leading-snug">{{ card.title|linebreaksbr }}</h3>
+            <p class="text-sm text-gray-500 leading-relaxed">{{ card.description }}</p>
+          </div>
+        </div>
+      {% empty %}
+        <div class="group relative overflow-hidden w-86 bg-[#e9edf1]/95 backdrop-blur-sm shadow-lg rounded-xl min-h-[360px] p-8 flex flex-col items-center text-center md:col-span-3">
+          <p class="text-sm text-gray-500">No highlight cards added yet.</p>
+        </div>
+      {% endfor %}
+
+    </div>
+  </div>
+</section>
+
+  <!-- ============ ABOUT US ============ -->
+  <!-- <section class="max-w-[1300px] mx-auto px-6 pt-24 pb-16">
+    <div class="flex items-center gap-3 mb-8">
+      <span class="w-6 h-0.5 bg-brand-red"></span>
+      <h2 class="text-2xl md:text-3xl font-bold">About Us and Our Priorities</h2>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+      <div>
+        <p class="text-sm text-gray-600 leading-relaxed mb-4">
+          HENIEMO brand was founded in 1992. We are specializing in home textile products' R&D, manufacturing and marketing, becoming a famous home textile exporting base and a leading enterprise of curtain mass customization in China.
+        </p>
+        <p class="text-sm text-gray-600 leading-relaxed mb-10">
+          At present, HENIEMO has bedding products, curtains, throw/blankets, mats, fragrant etc.
+          Besides, our factory has internationally advanced intelligent automation, and enforces strict manufacturing standards. Our R&amp;D center continuously developing and designing functional and fashionable new products.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+          <div class="flex gap-4">
+            <svg class="w-8 h-8 shrink-0 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 2l3 6 6 .9-4.5 4.4 1 6.2L12 16.8 6.5 19.5l1-6.2L3 8.9l6-.9z"/></svg>
+            <div>
+              <h4 class="font-bold mb-1">Focus on Quality</h4>
+              <p class="text-sm text-gray-500 leading-relaxed">Zero complaints in 20 years- quality is our key to excellence.</p>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <svg class="w-8 h-8 shrink-0 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 4l16 16M4 20L20 4"/></svg>
+            <div>
+              <h4 class="font-bold mb-1">Fabric Professor</h4>
+              <p class="text-sm text-gray-500 leading-relaxed">World-leading fabric R&amp;D team, shaping home textile innovation.</p>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <svg class="w-8 h-8 shrink-0 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/></svg>
+            <div>
+              <h4 class="font-bold mb-1">Intelligent Automation Production</h4>
+              <p class="text-sm text-gray-500 leading-relaxed">Advanced smart production — automated sheets, quilts, curtains &amp; warehousing.</p>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <svg class="w-8 h-8 shrink-0 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-2.2 0-4 1.3-4 3s1.8 3 4 3 4 1.3 4 3-1.8 3-4 3m0-12V5m0 14v-2"/></svg>
+            <div>
+              <h4 class="font-bold mb-1">Competitive Price</h4>
+              <p class="text-sm text-gray-500 leading-relaxed">As origin factory, we gather the best supply chain to make sure the most competitive price for our guests.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ph w-full h-[420px]" style="background-image:url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop')"></div>
+    </div>
+  </section> -->
+
+  <!-- ============ STATS ============ -->
+  <!-- <section class="max-w-[1300px] mx-auto px-6 pb-24">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center md:text-left">
+      <div class="border-t-2 border-gray-800 pt-4">
+        <div class="text-3xl md:text-4xl font-bold">2 <span class="text-brand-red">+</span> Years</div>
+        <div class="text-sm text-gray-500 mt-2">Industry Experience</div>
+      </div>
+      <div class="border-t-2 border-gray-300 pt-4">
+        <div class="text-3xl md:text-4xl font-bold">8 %</div>
+        <div class="text-sm text-gray-500 mt-2">Intelligent Automation</div>
+      </div>
+      <div class="border-t-2 border-gray-300 pt-4">
+        <div class="text-3xl md:text-4xl font-bold">240 <span class="text-brand-red">+</span></div>
+        <div class="text-sm text-gray-500 mt-2">Workers</div>
+      </div>
+      <div class="border-t-2 border-gray-300 pt-4">
+        <div class="text-3xl md:text-4xl font-bold">48000 <span class="text-brand-red">+</span></div>
+        <div class="text-sm text-gray-500 mt-2">Production Area</div>
+      </div>
+    </div>
+  </section> -->
+
+ <!-- ============ ABOUT US ============ -->
+{% if company %}
+<section class="max-w-[1300px] mx-auto px-6 pt-24 pb-16">
+
+    <!-- Section Heading -->
+    <div class="flex items-center gap-3 mb-8">
+        <span class="w-6 h-0.5 bg-brand-red"></span>
+        <h2 class="text-2xl md:text-3xl font-bold">About Us and Our Priorities</h2>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+
+        <!-- Left Content -->
+        <div>
+
+            {% if company.tagline %}
+                <p class="text-sm text-gray-600 leading-relaxed mb-4">
+                    {{ company.tagline }}
+                </p>
+            {% endif %}
+
+            {% if company.about_text %}
+                <p class="text-sm text-gray-600 leading-relaxed mb-4">
+                    {{ company.about_text|truncatewords:60 }}
+                </p>
+            {% endif %}
+
+            {% if company.founded_year %}
+                <p class="text-sm text-gray-600 leading-relaxed mb-10">
+                    Founded in {{ company.founded_year }}
+                </p>
+            {% endif %}
+
+            {% if vision_mission %}
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+
+                <!-- Vision -->
+                <div class="flex gap-4">
+                    <svg class="w-8 h-8 shrink-0 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                              d="M12 2l3 6 6 .9-4.5 4.4 1 6.2L12 16.8 6.5 19.5l1-6.2L3 8.9l6-.9z"/>
+                    </svg>
+
+                    <div>
+                        <h4 class="font-bold mb-1">
+                            {{ vision_mission.vision_title }}
+                        </h4>
+
+                        <p class="text-sm text-gray-500 leading-relaxed">
+                            {{ vision_mission.vision_text|truncatewords:30 }}
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Mission -->
+                <div class="flex gap-4">
+                    <svg class="w-8 h-8 shrink-0 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                              d="M4 4l16 16M4 20L20 4"/>
+                    </svg>
+
+                    <div>
+                        <h4 class="font-bold mb-1">
+                            {{ vision_mission.mission_title }}
+                        </h4>
+
+                        <p class="text-sm text-gray-500 leading-relaxed">
+                            {{ vision_mission.mission_text|truncatewords:30 }}
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+            {% endif %}
+
+            <div class="mt-10">
+                <a href="{% url 'about' %}" class="text-sm font-medium underline">
+                    Read More About Us
+                </a>
+            </div>
+
+        </div>
+
+        <!-- Right Image -->
+        <div>
+
+            {% if company.hero_image %}
+                <img
+                    src="{{ company.hero_image.url }}"
+                    alt="{{ company.name }}"
+                    class="w-full h-[420px] object-cover rounded-md">
+            {% else %}
+                <div class="w-full h-[420px] bg-gray-100 rounded-md"></div>
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</section>
+{% endif %}
+<!-- ============ WHAT WE DO ============ -->
+<section class="max-w-[1300px] mx-auto px-6 pb-24">
+  <div class="flex items-center justify-between mb-8">
+    <div class="flex items-center gap-3">
+      <span class="w-6 h-0.5 bg-brand-red"></span>
+      <h2 class="text-2xl md:text-3xl font-bold">What We Do</h2>
+    </div>
+    <a href="{% url 'products' %}" class="text-sm text-gray-500 hover:text-brand-red">All Products &raquo;</a>
+  </div>
+
+  <div class="relative">
+
+    {% if categories %}
+      <!-- Carousel viewport -->
+      <div id="category-carousel-viewport" class="overflow-hidden">
+        <div id="category-carousel-track" class="flex transition-transform duration-500 ease-out">
+          {% for cat in categories %}
+            <div class="category-slide shrink-0 px-1" style="width: 50%;">
+              <a href="{% url 'by_category' cat.slug %}" class="group cursor-pointer block">
+                <div class="bg-white p-3 shadow-sm">
+                  <div
+                    class="ph w-full aspect-square transition-transform duration-300 group-hover:scale-105"
+                    style="background-image:url('{% if cat.image %}{{ cat.image.url }}{% else %}https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=800&auto=format&fit=crop{% endif %}')">
+                  </div>
+                </div>
+                <p class="text-center font-medium mt-5">{{ cat.name }}</p>
+              </a>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Prev / Next controls -->
+      <button
+        type="button"
+        id="category-carousel-prev"
+        aria-label="Previous categories"
+        class="absolute -left-4 md:-left-6 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center text-gray-700 hover:text-brand-red hover:shadow-lg transition disabled:opacity-30 disabled:cursor-not-allowed"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+      </button>
+      <button
+        type="button"
+        id="category-carousel-next"
+        aria-label="Next categories"
+        class="absolute -right-4 md:-right-6 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center text-gray-700 hover:text-brand-red hover:shadow-lg transition disabled:opacity-30 disabled:cursor-not-allowed"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </button>
+    {% else %}
+      <p class="text-center text-gray-500">No categories available.</p>
+    {% endif %}
+
+  </div>
+</section>
+
+
+
+  <!-- ============ HOT PRODUCT ============ -->
+  <section class="max-w-[1300px] mx-auto px-6 pb-24 text-center">
+    <h2 class="text-2xl md:text-3xl font-bold mb-3">Hot Product</h2>
+    <p class="text-sm text-gray-500 mb-8">Hometex has bedding products, curtains, throw/blankets, mats, fragrant etc.</p>
+
+    <div class="flex justify-center gap-8 border-b border-gray-300 mb-12 text-sm" id="hot-product-tabs">
+      {% for cat in categories %}
+        <button
+          type="button"
+          class="relative pb-3 category-tab group transition-colors duration-300 ease-out
+                {% if cat.id == active_category.id %}
+                  text-gray-800 font-medium
+                {% else %}
+                  text-gray-400 hover:text-gray-800
+                {% endif %}"
+          data-category-id="{{ cat.id }}"
+        >
+          {{ cat.name }}
+          <span
+            class="absolute left-0 -bottom-px h-[2px] w-full bg-gray-800 origin-center transition-transform duration-300 ease-out
+                  {% if cat.id == active_category.id %}scale-x-100{% else %}scale-x-0 group-hover:scale-x-100{% endif %}"
+          ></span>
+        </button>
+      {% endfor %}
+    </div>
+
+    <div id="hot-product-list" class="grid grid-cols-1 md:grid-cols-2 gap-10 text-left transition-opacity duration-200">
+      {% include 'partials/hot_product_items.html' with products=hot_products %}
+    </div>
+  </section>
+
+  <!-- ============ WELCOME BANNER ============ -->
+  <!-- <section class="relative h-[380px] bg-black overflow-hidden">
+    <div class="absolute inset-0 ph opacity-40" style="background-image:url('https://images.unsplash.com/photo-1541746972996-4e0b0f43e02a?q=80&w=1600&auto=format&fit=crop')"></div>
+    <div class="absolute inset-0 flex items-center px-10">
+      <h2 class="text-white text-3xl md:text-5xl font-light">Welcome to <span class="font-bold">HENIEMO</span></h2>
+    </div>
+    <div class="absolute right-10 bottom-0 top-16 w-72 hidden md:block">
+      <div class="w-full h-full ph relative" style="background-image:url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=800&auto=format&fit=crop')">
+        <span class="absolute top-3 left-1/2 -translate-x-1/2 bg-white/90 text-xs px-3 py-1 rounded">Heniemo Building</span>
+      </div>
+    </div>
+  </section> -->
+
+  <!-- ============ OUR ADVANTAGE ============ -->
+  <!-- <section class="max-w-[1300px] mx-auto px-6 py-24">
+    <div class="flex items-center justify-between mb-12">
+      <div class="flex items-center gap-3">
+        <span class="w-6 h-0.5 bg-brand-red"></span>
+        <h2 class="text-2xl md:text-3xl font-bold">Our Advantage</h2>
+      </div>
+      <a href="#" class="text-sm text-gray-500 hover:text-brand-red">Learn More &raquo;</a>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-10 text-center">
+      <div>
+        <svg class="w-8 h-8 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 2l3 6 6 .9-4.5 4.4 1 6.2L12 16.8 6.5 19.5l1-6.2L3 8.9l6-.9z"/></svg>
+        <h4 class="font-bold mb-2">Focus on Quality</h4>
+        <p class="text-sm text-gray-500 leading-relaxed">As results, we keep zero complains for Costco orders in the last 20 years. We believe that best quality is the key to excellence.</p>
+      </div>
+      <div>
+        <svg class="w-8 h-8 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 4l16 16M4 20L20 4"/></svg>
+        <h4 class="font-bold mb-2">Fabric Professor</h4>
+        <p class="text-sm text-gray-500 leading-relaxed">We have the world's leading fabric R&amp;D team to explore market possibilities in home textiles.</p>
+      </div>
+      <div>
+        <svg class="w-8 h-8 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <h4 class="font-bold mb-2">Intelligent Automation Production</h4>
+        <p class="text-sm text-gray-500 leading-relaxed">At present, Heniemo has advanced fully automated home textile production lines and large intelligent production lines at quit specific intelligent Line, curtain specific intelligent line, and warehouse.</p>
+      </div>
+      <div>
+        <svg class="w-8 h-8 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-2.2 0-4 1.3-4 3s1.8 3 4 3 4 1.3 4 3-1.8 3-4 3m0-12V5m0 14v-2"/></svg>
+        <h4 class="font-bold mb-2">Competitive Price</h4>
+        <p class="text-sm text-gray-500 leading-relaxed">As origin factory, we gather the best supply chain to make sure the most competitive price for our guests.</p>
+      </div>
+    </div>
+  </section> -->
+
+  <!-- ============ NEWS ============ -->
+  <!-- <section class="max-w-[1300px] mx-auto px-6 pb-24">
+    <div class="flex items-center justify-between mb-8">
+      <div class="flex items-center gap-3">
+        <span class="w-6 h-0.5 bg-brand-red"></span>
+        <h2 class="text-2xl md:text-3xl font-bold">News</h2>
+      </div>
+      <a href="#" class="text-sm text-gray-500 hover:text-brand-red">More News &raquo;</a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div>
+        <div class="ph w-full h-48 mb-4" style="background-image:url('https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=800&auto=format&fit=crop')"></div>
+        <h4 class="font-bold">Stylish &amp; Comfortable: 90gsm Cationic Stripe...</h4>
+      </div>
+      <div>
+        <div class="ph w-full h-48 mb-4" style="background-image:url('https://images.unsplash.com/photo-1580301762395-83f7f3671c58?q=80&w=800&auto=format&fit=crop')"></div>
+        <h4 class="font-bold">Sustainable Luxury: Introducing Our 120GSM...</h4>
+        <p class="text-xs text-gray-500 mt-1">Trusted Partnerships with Global Brands</p>
+      </div>
+      <div>
+        <div class="ph w-full h-48 mb-4" style="background-image:url('https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=800&auto=format&fit=crop')"></div>
+        <h4 class="font-bold">It Was A Great Success At The Heniemo Fair In...</h4>
+      </div>
+    </div>
+  </section> -->
+
+  <!-- ============ CERTIFICATE ============ -->
+  <!-- <section class="bg-[#dfe4e9] py-24 text-center">
+    <h2 class="text-2xl md:text-3xl font-bold mb-3">Certificate</h2>
+    <p class="text-sm text-gray-500 max-w-xl mx-auto mb-12">Through years of international engineering experience, our factory is able to produce transformers that comply with various international standards such as IEC, IEEE, ANSI, CSA, EN, etc.</p>
+
+    <div class="max-w-[1300px] mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8">
+      <div class="bg-white p-6 flex flex-col items-center justify-center h-40 shadow-sm">
+        <span class="text-xs text-gray-400">CERTIFICATE</span>
+        <span class="font-bold text-sm mt-2">ISO 9001</span>
+      </div>
+      <div class="bg-white p-6 flex flex-col items-center justify-center h-40 shadow-sm">
+        <span class="text-xs text-gray-400">CERTIFICATE</span>
+        <span class="font-bold text-sm mt-2">OEKO-TEX STANDARD 100</span>
+      </div>
+      <div class="bg-white p-6 flex flex-col items-center justify-center h-40 shadow-sm">
+        <span class="text-xs text-gray-400">CERTIFICATE</span>
+        <span class="font-bold text-sm mt-2">OEKO-TEX STANDARD 100</span>
+      </div>
+      <div class="bg-white p-6 flex flex-col items-center justify-center h-40 shadow-sm">
+        <span class="text-xs text-gray-400">CERTIFICATE</span>
+        <span class="font-bold text-sm mt-2">BSCI</span>
+      </div>
+    </div>
+  </section> -->
+
+</body>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const tabs = document.querySelectorAll('#hot-product-tabs .category-tab');
+  const list = document.getElementById('hot-product-list');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', function () {
+      if (this.classList.contains('font-medium')) return; // already active
+
+      const categoryId = this.dataset.categoryId;
+
+      tabs.forEach(t => {
+        t.classList.remove('border-b-2', 'border-gray-800', 'font-medium', 'text-gray-800');
+        t.classList.add('text-gray-400');
+      });
+      this.classList.remove('text-gray-400');
+      this.classList.add('border-b-2', 'border-gray-800', 'font-medium', 'text-gray-800');
+
+      list.style.opacity = '0.3';
+
+      fetch(`{% url 'hot_products_by_category' %}?category_id=${categoryId}`, {
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+      })
+        .then(res => res.json())
+        .then(data => {
+          list.innerHTML = data.html;
+          list.style.opacity = '1';
+        })
+        .catch(err => {
+          console.error('Failed to load products:', err);
+          list.style.opacity = '1';
+        });
+    });
+  });
+});
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const viewport = document.getElementById('category-carousel-viewport');
+    if (!viewport) return;
+
+    const track = document.getElementById('category-carousel-track');
+    const slides = Array.from(track.children);
+    const prevBtn = document.getElementById('category-carousel-prev');
+    const nextBtn = document.getElementById('category-carousel-next');
+
+    let visibleCount = window.innerWidth >= 768 ? 4 : 2;
+    let currentIndex = 0;
+
+    function setSlideWidths() {
+      visibleCount = window.innerWidth >= 768 ? 4 : 2;
+      const widthPercent = 100 / visibleCount;
+      slides.forEach(slide => {
+        slide.style.width = widthPercent + '%';
+      });
+    }
+
+    function maxIndex() {
+      return Math.max(0, slides.length - visibleCount);
+    }
+
+    function update() {
+      currentIndex = Math.min(currentIndex, maxIndex());
+      const offsetPercent = (100 / visibleCount) * currentIndex;
+      track.style.transform = `translateX(-${offsetPercent}%)`;
+
+      prevBtn.disabled = currentIndex === 0;
+      nextBtn.disabled = currentIndex >= maxIndex();
+
+      const hideControls = slides.length <= visibleCount;
+      prevBtn.classList.toggle('hidden', hideControls);
+      nextBtn.classList.toggle('hidden', hideControls);
+    }
+
+    prevBtn.addEventListener('click', function () {
+      currentIndex = Math.max(0, currentIndex - 1);
+      update();
+    });
+
+    nextBtn.addEventListener('click', function () {
+      currentIndex = Math.min(maxIndex(), currentIndex + 1);
+      update();
+    });
+
+    window.addEventListener('resize', function () {
+      setSlideWidths();
+      update();
+    });
+
+    setSlideWidths();
+    update();
+  });
+
+</script>
+{% endblock %}

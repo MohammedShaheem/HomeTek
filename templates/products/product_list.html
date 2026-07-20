@@ -1,122 +1,186 @@
 {% extends "base.html" %}
 
-{% block title %}Product List | Furnish Template{% endblock %}
+{% block title %}Products{% endblock %}
 
 {% block content %}
 
-  <section class="px-6 pt-16 pb-10 text-center">
-    <h1 class="text-4xl md:text-5xl font-normal text-neutral-900 mb-6">Product List</h1>
-    
-  </section>
+<!-- ============ HERO / BREADCRUMB BANNER ============ -->
+<section class="relative w-full h-[380px] md:h-[420px] overflow-hidden">
+  <img
+    src="{% if company.cover_image %}{{ company.cover_image.url }}{% else %}https://images.unsplash.com/photo-1616627988307-a5cb9d5f4f9c?q=80&w=1600&auto=format&fit=crop{% endif %}"
+    alt="Products banner"
+    class="absolute inset-0 w-full h-full object-cover"
+  />
+  <div class="absolute inset-0 bg-black/10"></div>
+  <div class="relative max-w-[1400px] mx-auto h-full flex flex-col justify-end px-6 lg:px-10 pb-10 text-white">
+    <h1 class="text-4xl md:text-5xl font-semibold mb-3">
+      {% if active_category %}{{ active_category|title }}{% else %}Products{% endif %}
+    </h1>
+    <p class="text-sm">
+      <a href="{% url 'home' %}" class="hover:underline">Home</a>
+      <span class="mx-1">&gt;</span>
+      <span>Products</span>
+      {% if active_category %}
+        <span class="mx-1">&gt;</span>
+        <span>{{ active_category|title }}</span>
+      {% endif %}
+      {% if active_subcategory %}
+        <span class="mx-1">&gt;</span>
+        <span>{{ active_subcategory|title }}</span>
+      {% endif %}
+    </p>
+  </div>
+</section>
 
-  <section class="px-6 md:px-16 pb-24">
-    <div class="max-w-6xl mx-auto flex flex-col md:flex-row gap-10">
+<!-- ============ MAIN CONTENT ============ -->
+<main class="max-w-[1400px] mx-auto px-6 lg:px-10 py-14">
+  <div class="flex flex-col lg:flex-row gap-10">
 
-      <!-- Filters Sidebar -->
-      <aside class="w-full md:w-64 shrink-0">
-        <h2 class="text-lg font-semibold mb-5">Filters</h2>
+    <!-- Sidebar -->
+    <aside class="w-full lg:w-64 shrink-0">
+      <h2 class="text-xl font-semibold tracking-wide mb-5 uppercase">All Products</h2>
+      <ul class="divide-y divide-gray-200 border-t border-gray-200">
 
-        <!-- Category (URL-based filter — links to ProductListView with category_slug kwarg) -->
-        <div class="bg-neutral-100 p-5 mb-4">
-          <p class="text-xs font-semibold tracking-wider text-neutral-500 mb-3">CATEGORY</p>
-          <ul class="space-y-2 text-sm">
+        <li>
+          <a href="{% url 'products' %}"
+             class="block py-4 text-[15px] font-semibold transition-colors
+                    {% if not active_category %}text-brand-red{% else %}text-gray-900 hover:text-brand-red{% endif %}">
+            All
+          </a>
+        </li>
+
+        {% for cat in categories %}
+          <li>
+            <div class="w-full flex items-center justify-between py-4">
+              <a href="{% url 'by_category' cat.slug %}"
+                 class="text-[15px] font-semibold transition-colors
+                        {% if cat.slug == active_category %}text-brand-red{% else %}text-gray-900 hover:text-brand-red{% endif %}">
+                {{ cat.name }}
+              </a>
+              {% if cat.subcategories.all %}
+                <button type="button"
+                        class="subcat-toggle text-lg font-light text-gray-500 hover:text-brand-red"
+                        data-target="subcat-{{ cat.id }}"
+                        aria-label="Toggle {{ cat.name }} subcategories">
+                  {% if cat.slug == active_category %}&minus;{% else %}+{% endif %}
+                </button>
+              {% endif %}
+            </div>
+
+            {% if cat.subcategories.all %}
+              <ul id="subcat-{{ cat.id }}"
+                  class="pl-4 pb-3 space-y-2 {% if cat.slug != active_category %}hidden{% endif %}">
+                {% for sub in cat.subcategories.all %}
+                  <li>
+                    <a href="{% url 'by_subcategory' cat.slug sub.slug %}"
+                       class="block text-sm py-1 transition-colors
+                              {% if sub.slug == active_subcategory %}text-brand-red font-medium{% else %}text-gray-600 hover:text-brand-red{% endif %}">
+                      {{ sub.name }}
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+
+      {% if collections %}
+        <h2 class="text-xl font-semibold tracking-wide mt-10 mb-5 uppercase">Collections</h2>
+        <ul class="space-y-3">
+          {% for collection in collections %}
             <li>
-              <a href="{% url 'products' %}"
-                 class="{% if not active_category %}text-neutral-900 font-medium{% else %}text-neutral-600 hover:text-neutral-900{% endif %}">
-                All
+              <a href="{% url 'collection_detail' collection.slug %}"
+                 class="text-sm text-gray-600 hover:text-brand-red transition-colors">
+                {{ collection.name }}
               </a>
             </li>
-            {% for category in categories %}
-              <li>
-                <a href="{% url 'by_category' category.slug %}"
-                  class="{% if active_category == category.slug %}text-neutral-900 font-medium{% else %}text-neutral-600 hover:text-neutral-900{% endif %}">
-                  {{ category.name }}
-                </a>
-              </li>
-            {% endfor %}
-          </ul>
-        </div>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </aside>
 
-        <!-- Collections -->
-        {% if collections %}
-        <div class="bg-neutral-100 p-5 mb-4">
-          <p class="text-xs font-semibold tracking-wider text-neutral-500 mb-3">COLLECTION</p>
-          <ul class="space-y-2 text-sm">
-            {% for collection in collections %}
-              <li class="text-neutral-600">{{ collection.name }}</li>
-            {% endfor %}
-          </ul>
-        </div>
-        {% endif %}
+    <!-- Product Grid -->
+    <div class="flex-1">
 
-        {% if active_category %}
-          <a href="{% url 'products' %}"
-             class="block text-center w-full bg-neutral-900 text-white text-sm font-medium py-3.5 hover:bg-neutral-800 transition">
-            Clear Filters
-          </a>
-        {% endif %}
-      </aside>
-
-      <!-- Products -->
-      <div class="flex-1">
-        <p class="text-sm text-neutral-500 mb-6">
-          {{ paginator.count }} product{{ paginator.count|pluralize }} found
-        </p>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {% if products %}
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10">
           {% for product in products %}
-            <a href="{% url 'detail' product.slug %}" class="group block">              <div class="bg-neutral-100 aspect-square flex items-center justify-center overflow-hidden">
-                {% with primary_image=product.get_primary_image %}
-                  {% if primary_image %}
-                    <img src="{{ primary_image.image.url }}" alt="{{ product.name }}"
-                         class="w-3/4 h-3/4 object-contain group-hover:scale-105 transition duration-300" />
-                  {% else %}
-                    <div class="w-3/4 h-3/4 flex items-center justify-center text-neutral-300 text-xs">No image</div>
-                  {% endif %}
-                {% endwith %}
-              </div>
-              <h3 class="text-lg font-medium mt-4 group-hover:text-orange-500 transition">{{ product.name }}</h3>
-              <p class="text-sm mt-1">
-                {% if product.old_price %}
-                  <span class="line-through text-neutral-400 mr-2">${{ product.old_price }}</span>
+            {% with primary_image=product.get_primary_image %}
+            <a href="{% url 'detail' product.slug %}" class="group block">
+              <div class="aspect-[4/3] overflow-hidden bg-gray-100 mb-4">
+                {% if primary_image %}
+                  <img src="{{ primary_image.image.url }}"
+                       alt="{{ product.name }}"
+                       class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                {% else %}
+                  <div class="w-full h-full flex items-center justify-center text-gray-300 text-sm">
+                    No Image
+                  </div>
                 {% endif %}
-                <span class="text-neutral-900 font-medium">${{ product.price }}</span>
-              </p>
+              </div>
+              <p class="text-[15px] text-center text-gray-800 leading-snug px-2">{{ product.name }}</p>
+              {% if product.price %}
+                <p class="text-center text-sm text-brand-red font-semibold mt-1">₹{{ product.price }}</p>
+              {% endif %}
             </a>
-          {% empty %}
-            <p class="text-neutral-500 col-span-full text-center py-16">No products found.</p>
+            {% endwith %}
           {% endfor %}
         </div>
 
-        <!-- Pagination (Django's built-in Paginator via ListView) -->
+        <!-- Pagination -->
         {% if is_paginated %}
-        <div class="flex justify-center items-center gap-2 mt-12 text-sm font-medium">
-          {% if page_obj.has_previous %}
-            <a href="?page={{ page_obj.previous_page_number }}"
-               class="w-9 h-9 flex items-center justify-center border border-neutral-200 hover:border-neutral-900">&laquo;</a>
-          {% else %}
-            <span class="w-9 h-9 flex items-center justify-center border border-neutral-200 opacity-40 cursor-not-allowed">&laquo;</span>
-          {% endif %}
-
-          {% for num in paginator.page_range %}
-            {% if num == page_obj.number %}
-              <span class="w-9 h-9 flex items-center justify-center border bg-neutral-900 text-white border-neutral-900">{{ num }}</span>
+          <div class="flex items-center justify-center gap-2 mt-14">
+            {% if page_obj.has_previous %}
+              <a href="?page={{ page_obj.previous_page_number }}"
+                 class="px-4 py-2 text-sm border border-gray-300 text-gray-500 hover:border-gray-400">PREV</a>
             {% else %}
-              <a href="?page={{ num }}"
-                 class="w-9 h-9 flex items-center justify-center border border-neutral-200 hover:border-neutral-900">{{ num }}</a>
+              <span class="px-4 py-2 text-sm border border-gray-200 text-gray-300 cursor-not-allowed">PREV</span>
             {% endif %}
-          {% endfor %}
 
-          {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}"
-               class="w-9 h-9 flex items-center justify-center border border-neutral-200 hover:border-neutral-900">&raquo;</a>
-          {% else %}
-            <span class="w-9 h-9 flex items-center justify-center border border-neutral-200 opacity-40 cursor-not-allowed">&raquo;</span>
-          {% endif %}
-        </div>
+            {% for num in paginator.page_range %}
+              {% if num == page_obj.number %}
+                <span class="w-9 h-9 flex items-center justify-center text-sm bg-black text-white">{{ num }}</span>
+              {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <a href="?page={{ num }}"
+                   class="w-9 h-9 flex items-center justify-center text-sm border border-gray-300 hover:border-gray-400">{{ num }}</a>
+              {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+              <a href="?page={{ page_obj.next_page_number }}"
+                 class="px-4 py-2 text-sm border border-gray-300 text-gray-700 hover:border-gray-400">NEXT</a>
+            {% else %}
+              <span class="px-4 py-2 text-sm border border-gray-200 text-gray-300 cursor-not-allowed">NEXT</span>
+            {% endif %}
+          </div>
         {% endif %}
-      </div>
-    </div>
-  </section>
 
+      {% else %}
+        <div class="py-24 text-center text-gray-500">
+          <p class="text-lg">No products found{% if active_category %} in this category{% endif %}.</p>
+          <a href="{% url 'products' %}" class="inline-block mt-4 text-brand-red hover:underline">View all products</a>
+        </div>
+      {% endif %}
+
+    </div>
+  </div>
+</main>
+
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.subcat-toggle').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      const target = document.getElementById(this.dataset.target);
+      if (!target) return;
+      target.classList.toggle('hidden');
+      this.textContent = target.classList.contains('hidden') ? '+' : '\u2212';
+    });
+  });
+});
+</script>
 {% endblock %}

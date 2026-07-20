@@ -1,8 +1,9 @@
 from django.contrib import admin
 from .models import BlogPost
+from unfold.admin import ModelAdmin
 # Register your models here.
 
-class BlogPostAdmin(admin.ModelAdmin):
+class BlogPostAdmin(ModelAdmin):
     list_display = ['title','created_at']
     list_filter = ['created_at']
     search_fields = ['title','content']

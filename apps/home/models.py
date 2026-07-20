@@ -4,6 +4,7 @@ from django.utils.text import slugify
 # Create your models here.
 
 class BlogPost(models.Model):
+    
     title       = models.CharField(max_length=200)
     slug        = models.SlugField(unique=True, blank=True)
     cover_image = models.ImageField(upload_to='blog/')

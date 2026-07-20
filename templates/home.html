@@ -1,77 +1,8 @@
 {% extends "base.html" %}
 
-{% block title %}Furnish Template{% endblock %}
+{% block title %}Hometex{% endblock %}
 
 {% block content %}
-
-  <style>
-    :root {
-      --linen: #F6F1E6;
-      --linen-deep: #EFE7D6;
-      --ink: #26201A;
-      --rust: #A6482A;
-      --rust-dark: #8A3B22;
-      --sage: #6C7350;
-      --thread: #DCD0B8;
-    }
-
-    .bg-linen { background-color: var(--linen); }
-    .bg-linen-deep { background-color: var(--linen-deep); }
-    .text-ink { color: var(--ink); }
-    .text-rust { color: var(--rust); }
-    .text-sage { color: var(--sage); }
-    .bg-rust { background-color: var(--rust); }
-    .bg-rust:hover { background-color: var(--rust-dark); }
-    .border-thread { border-color: var(--thread); }
-    .ring-rust { --tw-ring-color: var(--rust); }
-
-    .no-scrollbar::-webkit-scrollbar { display: none; }
-    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
-    /* Signature: a stitched thread rule, used to separate sections instead of a plain hairline */
-    .stitch-rule {
-      position: relative;
-      height: 1px;
-      background-image: repeating-linear-gradient(to right, var(--thread) 0 10px, transparent 10px 18px);
-    }
-    .stitch-rule::before {
-      content: "+";
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      background: var(--linen);
-      color: var(--rust);
-      font-size: 14px;
-      line-height: 1;
-      padding: 0 10px;
-    }
-
-    .eyebrow {
-      font-size: 11px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--rust);
-      font-weight: 600;
-    }
-
-    .carousel-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 44px;
-      height: 44px;
-      border: 1px solid var(--thread);
-      background: var(--linen);
-      color: var(--ink);
-      transition: all 0.25s ease;
-    }
-    .carousel-btn:hover {
-      background: var(--ink);
-      border-color: var(--ink);
-      color: var(--linen);
-    }
-  </style>
 
   <!-- Hero -->
   <section class="relative px-6 md:px-16 pt-20 pb-14 text-center bg-linen overflow-hidden">
@@ -153,16 +84,16 @@
       </div>
       <div class="flex items-center justify-center gap-3 py-4 sm:py-0">
         <svg class="w-5 h-5 text-rust flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M3 7h11v8H3zM14 10h4l3 3v2h-7z" />
-          <circle cx="7" cy="17" r="1.5" /><circle cx="18" cy="17" r="1.5" />
+          <circle cx="12" cy="12" r="8" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 12h16M12 4c2.2 2.2 3.3 5 3.3 8s-1.1 5.8-3.3 8c-2.2-2.2-3.3-5-3.3-8s1.1-5.8 3.3-8z" />
         </svg>
-        <span class="text-sm text-ink font-medium">Free Shipping Over $75</span>
+        <span class="text-sm text-ink font-medium">Ethically Sourced Materials</span>
       </div>
       <div class="flex items-center justify-center gap-3 py-4 sm:py-0">
         <svg class="w-5 h-5 text-rust flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z" />
         </svg>
-        <span class="text-sm text-ink font-medium">30-Day Easy Returns</span>
+        <span class="text-sm text-ink font-medium">Decades of Craftsmanship</span>
       </div>
     </div>
   </section>

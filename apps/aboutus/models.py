@@ -4,6 +4,7 @@ from django.core.exceptions import ValidationError
 
 class CompanyProfile(models.Model):
     name = models.CharField(max_length=100)
+    cover_image = models.ImageField(upload_to='aboutus',blank=True,null=True)
     tagline = models.CharField(max_length=100,blank=True,null=True)
     about_text = models.TextField(blank=True,null=True)
     founded_year = models.PositiveIntegerField(blank=True,null=True)
@@ -47,3 +48,23 @@ class VisionMission(models.Model):
     def save(self,*args,**kwargs):
         self.full_clean()
         super().save(*args,**kwargs)
+    
+class WhyChooseUs(models.Model):
+    ICON_CHOICES = [
+        ('star', 'Star (OEM/ODM)'),
+        ('globe', 'Globe (Markets)'),
+        ('shield', 'Shield (Quality)'),
+    ]
+    icon = models.CharField(max_length=20, choices=ICON_CHOICES, default='star',null=True,blank=True)
+    title = models.CharField(max_length=150,null=True,blank=True)
+    description = models.TextField()
+    order = models.PositiveIntegerField(default=0,null=True,blank=True)
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name = 'Why Choose Us Card'
+        verbose_name_plural = 'Why Choose Us Cards'
+        ordering = ['order', 'id']
+
+    def __str__(self):
+        return self.title

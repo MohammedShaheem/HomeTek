@@ -1,6 +1,7 @@
 from django.views.generic import ListView, DetailView
 from django.shortcuts import get_object_or_404
 from .models import Product, Category, SubCategory, Collection
+from ..aboutus.models import CompanyProfile
 # Create your views here.
 
 
@@ -9,7 +10,10 @@ class CategoryListView(ListView):
     template_name = 'products/category_list.html'
     context_object_name = 'categories'
     queryset = Category.objects.filter(is_active=True)
-
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx['company'] = CompanyProfile.objects.filter(is_active=True).first()
+        return ctx
 
 class ProductListView(ListView):
     model = Product
@@ -33,7 +37,8 @@ class ProductListView(ListView):
         if subcategory_slug:
             qs = qs.filter(subcategory__slug=subcategory_slug)
 
-        return qs                                 
+        return qs     
+                                
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
         ctx['categories']   = Category.objects.filter(is_active=True)
@@ -41,6 +46,7 @@ class ProductListView(ListView):
 
         ctx['active_category']    = self.kwargs.get('category_slug', '')
         ctx['active_subcategory'] = self.kwargs.get('subcategory_slug', '')
+        ctx['company'] =CompanyProfile.objects.filter(is_active=True).first()
         return ctx
 
 
@@ -85,7 +91,11 @@ class CollectionListView(ListView):
     template_name = 'products/collection_list.html'
     context_object_name = 'collections'
     queryset = Collection.objects.filter(is_active=True)
-
+    
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx['company'] = CompanyProfile.objects.filter(is_active=True).first()
+        return ctx
 
 class CollectionDetailView(DetailView):
     model = Collection

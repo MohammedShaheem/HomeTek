@@ -4,19 +4,43 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{% block title %}Furnish Template{% endblock %}</title>
+  <title>{% block title %}HENIEMO{% endblock %}</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              red: '#e33b4e',
+              dark: '#1a1a1a',
+            }
+          },
+          fontFamily: {
+            sans: ['"Quicksand"', '"Helvetica Neue"', 'Arial', 'sans-serif'],
+            heading: ['"Baloo 2"', '"Quicksand"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
   <style>
-    body { font-family: 'Poppins', sans-serif; }
-    .font-display { font-family: 'Playfair Display', serif; }
+    .ph {
+      background-size: cover;
+      background-position: center;
+    }
   </style>
 
   {% block extra_head %}{% endblock %}
 </head>
-<body class="text-neutral-800 bg-white">
+<body class="text-[#333] font-sans bg-[#D1D3D3]">
 
   {% include "includes/header.html" %}
 

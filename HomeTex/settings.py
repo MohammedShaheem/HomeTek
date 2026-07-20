@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'unfold',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -118,7 +119,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
@@ -133,3 +134,66 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",   
 ]
+
+
+UNFOLD = {
+    "SITE_TITLE": "Home Tex Admin",
+    "SITE_HEADER": "Home Tex",
+    "SHOW_HISTORY": True,
+    "SHOW_VIEW_ON_SITE": True,
+    "COLORS": {
+        "primary": {
+            "50": "255 247 237",
+            "500": "249 115 22",   
+            "600": "234 88 12",
+            "900": "124 45 18",
+        },
+    },
+   "SIDEBAR": {
+        "show_search": True,
+        "show_all_applications": False,  
+        "navigation": [
+            {
+                "title": "Dashboard",
+                "separator": True,
+                "items": [
+                    {"title": "Home", "icon": "dashboard", "link": "/admin/"},
+                ],
+            },
+            {
+                "title": "Catalog",
+                "separator": True,
+                "items": [
+                    {"title": "Products", "icon": "inventory_2", "link": "/admin/products/product/"},
+                    {"title": "Categories", "icon": "category", "link": "/admin/products/category/"},
+                    {"title": "Collections", "icon": "collections_bookmark", "link": "/admin/products/collection/"},
+                ],
+            },
+            {
+                "title": "Content",
+                "separator": True,
+                "items": [
+                    {"title": "About Us", "icon": "info", "link": "/admin/aboutus/companyprofile/"},
+                    {"title": "Vision & Mission", "icon": "flag", "link": "/admin/aboutus/visionmission/"},
+                    {"title": "Blog Posts", "icon": "article", "link": "/admin/home/blogpost/"},
+                ],
+            },
+            {
+                "title": "Inquiries",
+                "separator": True,
+                "items": [
+                    {"title": "Enquiries", "icon": "mail", "link": "/admin/contact/enquiry/"},
+                ],
+            },
+            {
+                "title": "Access",
+                "separator": True,
+                "collapsible": True,
+                "items": [
+                    {"title": "Users", "icon": "person", "link": "/admin/auth/user/"},
+                    {"title": "Groups", "icon": "group", "link": "/admin/auth/group/"},
+                ],
+            },
+        ],
+    },
+}

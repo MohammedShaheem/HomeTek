@@ -1,0 +1,38 @@
+{% for product in products %}
+  <a href="{% url 'detail' product.slug %}"
+     class="group block rounded-2xl overflow-hidden transition-shadow duration-500 ease-out hover:shadow-xl hover:shadow-gray-300/40">
+
+    <!-- Image -->
+    <div class="relative w-full h-72 mb-5 overflow-hidden rounded-2xl bg-gray-100">
+      <div
+        class="ph w-full h-full bg-center bg-cover transition-transform duration-700 ease-out group-hover:scale-110"
+        style="background-image:url('{% if product.images.first %}{{ product.images.first.image.url }}{% else %}https://via.placeholder.com/600x400{% endif %}')"
+      ></div>
+
+      <!-- Gradient overlay -->
+      <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out"></div>
+
+      <!-- "Read More" reveal on hover -->
+      <span class="absolute bottom-4 left-4 inline-flex items-center gap-1 text-white text-sm font-medium
+                   translate-y-3 opacity-0 group-hover:translate-y-0 group-hover:opacity-100
+                   transition-all duration-500 ease-out">
+        View Product
+        <svg class="w-4 h-4 transition-transform duration-500 ease-out group-hover:translate-x-1"
+             fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </span>
+    </div>
+
+    <!-- Text -->
+    <h3 class="font-bold text-lg mb-2 transition-colors duration-300 group-hover:text-gray-600">
+      {{ product.name }}
+    </h3>
+    <p class="text-sm text-gray-500 mb-3">
+      {{ product.short_description|default:product.description|truncatewords:20 }}
+    </p>
+    <span class="text-sm font-medium underline underline-offset-2">Read More</span>
+  </a>
+{% empty %}
+  <p class="col-span-2 text-gray-400">No products found in this category.</p>
+{% endfor %}
