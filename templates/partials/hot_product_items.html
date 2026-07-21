@@ -9,10 +9,10 @@
         style="background-image:url('{% if product.images.first %}{{ product.images.first.image.url }}{% else %}https://via.placeholder.com/600x400{% endif %}')"
       ></div>
 
-      <!-- Gradient overlay -->
+      
       <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out"></div>
 
-      <!-- "Read More" reveal on hover -->
+      
       <span class="absolute bottom-4 left-4 inline-flex items-center gap-1 text-white text-sm font-medium
                    translate-y-3 opacity-0 group-hover:translate-y-0 group-hover:opacity-100
                    transition-all duration-500 ease-out">
@@ -24,7 +24,7 @@
       </span>
     </div>
 
-    <!-- Text -->
+    
     <h3 class="font-bold text-lg mb-2 transition-colors duration-300 group-hover:text-gray-600">
       {{ product.name }}
     </h3>
