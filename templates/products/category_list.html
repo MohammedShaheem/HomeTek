@@ -5,7 +5,7 @@
 {% block content %}
   <section class="relative w-full h-[380px] md:h-[420px] overflow-hidden">
   <img
-    src="{% if company.cover_image %}{{ company.cover_image.url }}{% else %}https://images.unsplash.com/photo-1616627988307-a5cb9d5f4f9c?q=80&w=1600&auto=format&fit=crop{% endif %}"
+    src="{% if category.image %}{{ category.image.url }}{% elif company.cover_image %}{{ company.cover_image.url }}{% endif %}"
     alt="Categories banner"
     class="absolute inset-0 w-full h-full object-cover"
   />

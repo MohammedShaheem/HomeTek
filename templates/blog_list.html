@@ -17,27 +17,42 @@
   <section class="px-6 md:px-16 py-20">
     <div class="max-w-6xl mx-auto">
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {% for post in posts %}
-          <article class="group bg-white card-shadow">
-            <div class="bg-linen-deep aspect-[4/3] flex items-center justify-center overflow-hidden mb-5">
-              {% if post.cover_image %}
-                <img src="{{ post.cover_image.url }}" alt="{{ post.title }}"
-                     class="w-full h-full object-cover group-hover:scale-105 transition duration-300" />
-              {% else %}
-                <div class="w-3/4 h-3/4 flex items-center justify-center text-neutral-400 text-xs">No image</div>
-              {% endif %}
-            </div>
-            <div class="px-6 pb-6">
-              <p class="text-xs tracking-wider text-rust uppercase mb-2">{{ post.created_at|date:"F j, Y" }}</p>
-              <h2 class="font-display text-xl font-normal text-ink mb-2">{{ post.title }}</h2>
-              <p class="text-sm text-neutral-600 leading-relaxed">{{ post.content|truncatewords:25 }}</p>
-            </div>
-          </article>
-        {% empty %}
-          <p class="text-neutral-500 col-span-full text-center py-16">No blog posts yet.</p>
-        {% endfor %}
-      </div>
+      {% if posts %}
+        <div class="divide-y divide-neutral-200">
+          {% for post in posts %}
+            <article class="grid grid-cols-1 md:grid-cols-[380px_1fr] gap-8 md:gap-14 py-14 first:pt-0">
+
+              <!-- Image -->
+              <div class="bg-linen-deep aspect-[4/3] md:aspect-square overflow-hidden">
+                {% if post.cover_image %}
+                  <img src="{{ post.cover_image.url }}" alt="{{ post.title }}"
+                       class="w-full h-full object-cover" />
+                {% else %}
+                  <div class="w-full h-full flex items-center justify-center text-neutral-400 text-xs">
+                    No image
+                  </div>
+                {% endif %}
+              </div>
+
+              <!-- Text -->
+              <div class="flex flex-col justify-center">
+                <p class="text-xs tracking-wider text-rust uppercase mb-3">
+                  {{ post.created_at|date:"F j, Y" }}
+                </p>
+                <h2 class="font-display text-2xl md:text-3xl font-normal text-ink mb-5 leading-snug">
+                  {{ post.title }}
+                </h2>
+                <div class="text-[15px] text-neutral-600 leading-relaxed space-y-4 max-w-2xl">
+                  {{ post.content|linebreaks }}
+                </div>
+              </div>
+
+            </article>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p class="text-neutral-500 text-center py-16">No blog posts yet.</p>
+      {% endif %}
 
       <!-- Pagination -->
       {% if is_paginated %}

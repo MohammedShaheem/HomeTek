@@ -41,12 +41,26 @@ class ProductListView(ListView):
                                 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
-        ctx['categories']   = Category.objects.filter(is_active=True)
-        ctx['collections']  = Collection.objects.filter(is_active=True)
+        ctx['categories']  = Category.objects.filter(is_active=True)
+        ctx['collections'] = Collection.objects.filter(is_active=True)
+        ctx['company'] = CompanyProfile.objects.filter(is_active=True).first()
 
-        ctx['active_category']    = self.kwargs.get('category_slug', '')
-        ctx['active_subcategory'] = self.kwargs.get('subcategory_slug', '')
-        ctx['company'] =CompanyProfile.objects.filter(is_active=True).first()
+        category_slug = self.kwargs.get('category_slug')
+        subcategory_slug = self.kwargs.get('subcategory_slug')
+
+        category = None
+        subcategory = None
+
+        if category_slug:
+            category = Category.objects.filter(slug=category_slug, is_active=True).first()
+        if subcategory_slug:
+            subcategory = SubCategory.objects.filter(slug=subcategory_slug).first()
+
+        ctx['category'] = category                                    
+        ctx['subcategory'] = subcategory
+        ctx['active_category'] = category.slug if category else ''
+        ctx['active_subcategory'] = subcategory.slug if subcategory else ''
+
         return ctx
 
 
