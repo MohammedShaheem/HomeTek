@@ -1,118 +1,91 @@
 {% extends "base.html" %}
 
-{% block title %}Contact Us | HomeTex{% endblock %}
+{% block title %}Contact Us | {{ company.name|default:"HENIEMO" }}{% endblock %}
 
 {% block content %}
 
-  <!-- Page Heading -->
-  <section class="px-6 pt-16 pb-14 text-center">
-    <h1 class="text-4xl md:text-5xl font-normal text-neutral-900 mb-6">Contact Us</h1>
-    <p class="text-neutral-500 leading-relaxed max-w-lg mx-auto">
-      We'd love to hear from you! Get in touch with our team for any questions or feedback.
+<!-- ============ HERO / BREADCRUMB BANNER ============ -->
+<section class="relative w-full h-[280px] md:h-[320px] overflow-hidden">
+  <img
+    src="{% if contact.image %}{{ contact.image.url }}{% endif %}"
+    alt="Contact us banner"
+    class="absolute inset-0 w-full h-full object-cover"
+  />
+  <div class="absolute inset-0 bg-black/30"></div>
+  <div class="relative max-w-[1300px] mx-auto h-full flex flex-col justify-end px-6 pb-10 text-white">
+    <h1 class="font-heading text-4xl md:text-5xl font-bold mb-3">Contact Us</h1>
+    <p class="text-sm">
+      <a href="{% url 'products' %}" class="hover:underline">Home</a>
+      <span class="mx-1.5 opacity-70">/</span>
+      <span class="opacity-90">Contact Us</span>
     </p>
-  </section>
+  </div>
+</section>
 
-  <!-- Get in Touch + Form -->
-  <section class="px-6 md:px-16 pb-16">
-    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_1.6fr] gap-10">
+<!-- ============ CONTACT DETAILS ============ -->
+<section class="max-w-[1300px] mx-auto px-6 py-16 md:py-20">
 
-      <!-- Get in Touch -->
-      <div>
-        <h2 class="text-2xl md:text-3xl font-normal text-neutral-900 mb-5">Get in Touch</h2>
-        <p class="text-neutral-500 leading-relaxed mb-8">
-          Whether you have a question about our products, need assistance, or just want to talk furniture — we're here for you.
-        </p>
+  <div class="flex items-center gap-3 mb-4">
+    <span class="w-6 h-0.5 bg-brand-red"></span>
+    <h2 class="font-heading text-2xl md:text-3xl font-bold text-brand-dark">Get in Touch</h2>
+  </div>
+  <p class="font-sans text-sm text-gray-600 leading-relaxed max-w-xl mb-12">
+    Reach out to us using any of the details below — we're happy to help with product queries, bulk orders, or general questions.
+  </p>
 
-        <div class="space-y-6">
-          <div class="flex items-start gap-4">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-orange-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2a7 7 0 00-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 00-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"/></svg>
-            <div>
-              <p class="text-xs font-semibold tracking-wider text-neutral-700">ADDRESS</p>
-              <p class="text-neutral-500 mt-1">123 Furniture Street, Mumbai, India</p>
-            </div>
-          </div>
+  {% if contact %}
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
-          <div class="flex items-start gap-4">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-orange-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M2 5.5A1.5 1.5 0 013.5 4h17A1.5 1.5 0 0122 5.5v13a1.5 1.5 0 01-1.5 1.5h-17A1.5 1.5 0 012 18.5v-13zm2.2.5l7.8 6.2L19.8 6H4.2zM4 8.1V18h16V8.1l-8 6.3-8-6.3z"/></svg>
-            <div>
-              <p class="text-xs font-semibold tracking-wider text-neutral-700">EMAIL</p>
-              <p class="text-neutral-500 mt-1">support@furnish.com</p>
-            </div>
-          </div>
-
-          <div class="flex items-start gap-4">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-orange-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24 11.36 11.36 0 003.55.57 1 1 0 011 1V20a1 1 0 01-1 1C10.4 21 3 13.6 3 4.5a1 1 0 011-1h3.5a1 1 0 011 1 11.36 11.36 0 00.57 3.55 1 1 0 01-.25 1.02l-2.2 2.22z"/></svg>
-            <div>
-              <p class="text-xs font-semibold tracking-wider text-neutral-700">PHONE</p>
-              <p class="text-neutral-500 mt-1">+91 98765 43210</p>
-            </div>
-          </div>
-        </div>
+    <!-- Email -->
+    <div class="bg-white rounded-2xl shadow-sm p-7">
+      <div class="w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center mb-5">
+        <svg class="w-5 h-5 text-brand-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                d="M3 6l9 7 9-7M4 5h16a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V6a1 1 0 011-1z"/>
+        </svg>
       </div>
+      <h4 class="font-heading font-bold text-brand-dark mb-2">Email</h4>
+      <a href="mailto:{{ contact.email }}" class="font-sans text-sm text-gray-600 hover:text-brand-red transition-colors break-words">
+        {{ contact.email }}
+      </a>
+    </div>
 
-      <!-- Send a Message -->
-      <div class="border border-neutral-200 p-8 md:p-10">
-        <h2 class="text-2xl md:text-3xl font-normal text-neutral-900 mb-8">Send a Message</h2>
-
-        <form id="contactForm" method="post" class="space-y-6">
-          {% csrf_token %}
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div>
-              <label for="fullName" class="block text-sm mb-2">Full Name</label>
-              <input type="text" id="fullName" name="full_name" placeholder="Your name"
-                     class="w-full border border-neutral-300 px-4 py-3 text-sm outline-none focus:border-neutral-900" />
-            </div>
-            <div>
-              <label for="email" class="block text-sm mb-2">Email</label>
-              <input type="email" id="email" name="email" placeholder="you@example.com"
-                     class="w-full border border-neutral-300 px-4 py-3 text-sm outline-none focus:border-neutral-900" />
-            </div>
-          </div>
-
-          <div>
-            <label for="subject" class="block text-sm mb-2">Subject</label>
-            <input type="text" id="subject" name="subject" placeholder="Subject"
-                   class="w-full border border-neutral-300 px-4 py-3 text-sm outline-none focus:border-neutral-900" />
-          </div>
-
-          <div>
-            <label for="message" class="block text-sm mb-2">Message</label>
-            <textarea id="message" name="message" rows="6" placeholder="Write your message here..."
-                      class="w-full border border-neutral-300 px-4 py-3 text-sm outline-none focus:border-neutral-900 resize-y"></textarea>
-          </div>
-
-          <div class="flex justify-end">
-            <button type="submit" class="bg-neutral-900 text-white text-sm font-medium px-8 py-3.5 hover:bg-neutral-800 transition">
-              Send Message
-            </button>
-          </div>
-        </form>
+    <!-- Phone -->
+    {% if contact.phone %}
+    <div class="bg-white rounded-2xl shadow-sm p-7">
+      <div class="w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center mb-5">
+        <svg class="w-5 h-5 text-brand-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                d="M3 5a2 2 0 012-2h2.28a1 1 0 01.97.76l1.1 4.4a1 1 0 01-.5 1.12L7.1 10.4a12.05 12.05 0 006.5 6.5l1.12-1.75a1 1 0 011.12-.5l4.4 1.1a1 1 0 01.76.97V19a2 2 0 01-2 2h-1C9.61 21 3 14.39 3 6V5z"/>
+        </svg>
       </div>
+      <h4 class="font-heading font-bold text-brand-dark mb-2">Phone</h4>
+      <a href="tel:{{ contact.phone }}" class="font-sans text-sm text-gray-600 hover:text-brand-red transition-colors">
+        {{ contact.phone }}
+      </a>
     </div>
-  </section>
+    {% endif %}
 
-  <!-- Map -->
-  <section class="px-6 md:px-16 pb-24">
-    <div class="max-w-6xl mx-auto">
-      <iframe
-        title="Mumbai Map"
-        class="w-full h-[380px] border border-neutral-200"
-        src="https://www.google.com/maps?q=Mumbai,Maharashtra,India&output=embed"
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade">
-      </iframe>
+    <!-- Address -->
+    {% if contact.address %}
+    <div class="bg-white rounded-2xl shadow-sm p-7">
+      <div class="w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center mb-5">
+        <svg class="w-5 h-5 text-brand-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                d="M12 21c-4.5-4.2-7-7.7-7-11a7 7 0 1114 0c0 3.3-2.5 6.8-7 11z"/>
+          <circle cx="12" cy="10" r="2.5" stroke-width="1.5"/>
+        </svg>
+      </div>
+      <h4 class="font-heading font-bold text-brand-dark mb-2">Address</h4>
+      <p class="font-sans text-sm text-gray-600 leading-relaxed">{{ contact.address }}</p>
     </div>
-  </section>
+    {% endif %}
 
-{% endblock %}
+  </div>
+  {% else %}
+    <p class="font-sans text-sm text-gray-500">Contact details are being updated. Please check back soon.</p>
+  {% endif %}
 
-{% block extra_scripts %}
-  <script>
-    document.getElementById("contactForm").addEventListener("submit", function (e) {
-      // Remove this preventDefault once the Django view handles the POST and redirects/re-renders.
-      e.preventDefault();
-      alert("Thanks! Your message has been sent.");
-      this.reset();
-    });
-  </script>
+</section>
+
 {% endblock %}

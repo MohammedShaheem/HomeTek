@@ -1,181 +1,158 @@
 {% extends "base.html" %}
 
-{% block title %}About Us | {{ company.name|default:"Honeymoon Home Fashions" }}{% endblock %}
+{% block title %}About Us | {{ company.name|default:"HENIEMO" }}{% endblock %}
 
 {% block extra_head %}
 <style>
   html { scroll-behavior: smooth; }
-  .brand-underline { position: relative; }
-  .brand-underline::after {
-    content: "";
-    position: absolute;
-    left: 0; right: 0; bottom: -6px;
-    height: 2px;
-    background: #1A1A1A;
-  }
 </style>
 {% endblock %}
 
 {% block content %}
 
 <!-- ============ HERO / BREADCRUMB BANNER ============ -->
-<section class="relative w-full h-[380px] md:h-[420px] overflow-hidden">
+<section class="relative w-full h-[340px] md:h-[400px] overflow-hidden">
   <img
     src="{% if company.cover_image %}{{ company.cover_image.url }}{% else %}https://images.unsplash.com/photo-1616627988307-a5cb9d5f4f9c?q=80&w=1600&auto=format&fit=crop{% endif %}"
     alt="{{ company.name|default:'About Us' }} banner"
     class="absolute inset-0 w-full h-full object-cover"
   />
-  <div class="absolute inset-0 bg-black/10"></div>
-  <div class="relative max-w-[1400px] mx-auto h-full flex flex-col justify-end px-6 lg:px-10 pb-10 text-white">
-    <h1 class="text-4xl md:text-5xl font-semibold mb-3">About Us</h1>
+  <div class="absolute inset-0 bg-black/25"></div>
+  <div class="relative max-w-[1300px] mx-auto h-full flex flex-col justify-end px-6 pb-10 text-white">
+    <h1 class="font-heading text-4xl md:text-5xl font-bold mb-3">About Us</h1>
     <p class="text-sm">
-      <a href="{% url 'products' %}" class="hover:underline">Home</a> <span class="mx-1">&gt;</span> <span>About Us</span>
+      <a href="{% url 'products' %}" class="hover:underline">Home</a>
+      <span class="mx-1.5 opacity-70">/</span>
+      <span class="opacity-90">About Us</span>
     </p>
   </div>
 </section>
 
-<!-- ============ ABOUT US SECTION ============ -->
-<section class="max-w-[1400px] mx-auto px-6 lg:px-10 py-16">
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-    <div class="w-full h-[380px] overflow-hidden">
-      {% if company.about_image %}
-        <img src="{{ company.about_image.url }}" alt="{{ company.name|default:'Factory' }}" class="w-full h-full object-cover" />
-      {% elif company.hero_image %}
-        <img src="{{ company.hero_image.url }}" alt="{{ company.name|default:'Factory' }}" class="w-full h-full object-cover" />
+<!-- ============ ABOUT US ============ -->
+<section class="max-w-[1300px] mx-auto px-6 py-16 md:py-20">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+    <div class="bg-white p-3 rounded-2xl shadow-sm order-2 lg:order-1">
+      {% if company.hero_image %}
+        <img src="{{ company.hero_image.url }}" alt="{{ company.name }}" class="w-full h-[360px] md:h-[420px] object-cover rounded-xl">
       {% else %}
-        <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=1200&auto=format&fit=crop" alt="Factory aerial view" class="w-full h-full object-cover" />
+        <div class="w-full h-[360px] md:h-[420px] bg-gray-100 rounded-xl"></div>
       {% endif %}
     </div>
-    <div>
-      <h2 class="text-3xl font-semibold mb-6">About us</h2>
-      {% if company.about_text %}
-        <p class="text-gray-600 leading-relaxed mb-5">
+
+    <div class="order-1 lg:order-2">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="w-6 h-0.5 bg-brand-red"></span>
+        <h2 class="font-heading text-2xl md:text-3xl font-bold text-brand-dark">About Us</h2>
+      </div>
+
+      {% if company.tagline %}
+        <p class="font-heading text-lg font-semibold text-brand-dark mb-4">{{ company.tagline }}</p>
+      {% endif %}
+
+      <div class="font-sans text-sm text-gray-600 leading-relaxed space-y-4 mb-6">
+        {% if company.about_text %}
           {{ company.about_text|linebreaks }}
-        </p>
-      {% else %}
-        <p class="text-gray-600 leading-relaxed mb-5">
-          HENIEMO brand was founded in 1992. We are specializing in home textile products' R&amp;D, manufacturing and marketing, becoming a famous home textile exporting base and a leading enterprise of curtain mass customization in China.
-        </p>
-        <p class="text-gray-600 leading-relaxed mb-5">
-          At present, HENIEMO has bedding products, curtains, throw/blankets, mats, fragrant etc.
-        </p>
-        <p class="text-gray-600 leading-relaxed">
-          Besides, our factory has internationally advanced intelligent automation, and enforces strict manufacturing standards. Our R&amp;D center continuously developing and designing functional and fashionable new products.
-        </p>
+        {% else %}
+          <p>{{ company.name|default:"HENIEMO" }} specializes in home textile products' R&amp;D, manufacturing and marketing.</p>
+        {% endif %}
+      </div>
+
+      {% if company.founded_year %}
+        <span class="inline-block font-sans text-xs font-semibold tracking-wide text-gray-500 border border-gray-300 rounded-full px-3 py-1">
+          Founded in {{ company.founded_year }}
+        </span>
       {% endif %}
     </div>
+
   </div>
 </section>
 
-<!-- ============ HENIEMO BRAND / VIDEO / CAROUSEL SECTION ============ -->
-<section class="max-w-[1400px] mx-auto px-6 lg:px-10 pb-16">
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-
-    <!-- Left: brand statement + carousel -->
-    <div>
-      <div class="text-center mb-8">
-        <h3 class="text-2xl font-semibold mb-4">{{ company.name|default:"HENIEMO" }} brand</h3>
-        <p class="text-gray-600 max-w-sm mx-auto mb-6">
-          {{ company.tagline|default:"We specialize in the R&D, manufacturing, and marketing of home textile products." }}
-        </p>
-      </div>
-
-      <!-- Carousel main image -->
-      <div class="relative w-full h-[420px] overflow-hidden group">
-        <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=1000&auto=format&fit=crop" alt="Pink comforter bedroom set" class="w-full h-full object-cover" />
-        <div class="absolute top-6 left-6">
-          <div class="text-white leading-tight">
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Right: video + thumbnails -->
-    <div class="flex flex-col justify-end h-full">
-      <div class="relative w-full h-[420px] overflow-hidden mb-6">
-        <img src="https://images.unsplash.com/photo-1600369672770-985fd30004eb?q=80&w=1000&auto=format&fit=crop" alt="Cotton fabric closeup" class="w-full h-full object-cover" />
-      </div>
-
-      <!-- Thumbnails -->
-      <div class="grid grid-cols-5 gap-3">
-        <div class="aspect-square overflow-hidden bg-gray-100">
-          <img src="https://images.unsplash.com/photo-1631049035182-249067d7618e?q=80&w=300&auto=format&fit=crop" class="w-full h-full object-cover" alt="thumb" />
-        </div>
-        <div class="aspect-square overflow-hidden bg-gray-100">
-          <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=300&auto=format&fit=crop" class="w-full h-full object-cover" alt="thumb" />
-        </div>
-        <div class="aspect-square overflow-hidden bg-gray-100">
-          <img src="https://images.unsplash.com/photo-1615874959474-d609969a20ed?q=80&w=300&auto=format&fit=crop" class="w-full h-full object-cover" alt="thumb" />
-        </div>
-        <div class="aspect-square overflow-hidden bg-gray-100">
-          <img src="https://images.unsplash.com/photo-1567016432779-094069958ea5?q=80&w=300&auto=format&fit=crop" class="w-full h-full object-cover" alt="thumb" />
-        </div>
-        <div class="aspect-square overflow-hidden bg-gray-100">
-          <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&w=300&auto=format&fit=crop" class="w-full h-full object-cover" alt="thumb" />
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ STATS SECTION ============ -->
-<section class="max-w-[1400px] mx-auto px-6 lg:px-10 pb-20">
-  <div class="text-center max-w-2xl mx-auto mb-12">
-    <h2 class="text-3xl font-semibold mb-5">Innovating Home Textiles with Excellence Since {{ company.founded_year|default:"1992" }}</h2>
-    <p class="text-gray-600 leading-relaxed">
-      {{ company.tagline|default:"HENIEMO specializes in premium home textiles, from bedding to custom curtains. With advanced automation and rigorous quality control, we blend innovation with reliability for global markets." }}
-    </p>
+<!-- ============ VISION & MISSION ============ -->
+{% if vision_mission %}
+<section class="max-w-[1300px] mx-auto px-6 pb-16 md:pb-20">
+  <div class="flex items-center gap-3 mb-10">
+    <span class="w-6 h-0.5 bg-brand-red"></span>
+    <h2 class="font-heading text-2xl md:text-3xl font-bold text-brand-dark">Vision &amp; Mission</h2>
   </div>
 
-</section>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 
-<!-- ============ CORE ADVANTAGES / VISION & MISSION SECTION ============ -->
-<section class="max-w-[1400px] mx-auto px-6 lg:px-10 pb-20">
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-    <div class="w-full h-[320px] overflow-hidden">
-      <img src="https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?q=80&w=1200&auto=format&fit=crop" alt="Factory production line" class="w-full h-full object-cover" />
-    </div>
-    <div>
-      <h2 class="text-3xl font-semibold mb-6">Core Advantages</h2>
-
-      {% if vision_mission %}
-        <div class="space-y-6 mb-6">
-          {% if vision_mission.vision_title or vision_mission.vision_text %}
-            <div>
-              <h4 class="font-semibold mb-1">{{ vision_mission.vision_title|default:"Our Vision" }}</h4>
-              <p class="text-gray-600 leading-relaxed">{{ vision_mission.vision_text }}</p>
-            </div>
-          {% endif %}
-          {% if vision_mission.mission_title or vision_mission.mission_text %}
-            <div>
-              <h4 class="font-semibold mb-1">{{ vision_mission.mission_title|default:"Our Mission" }}</h4>
-              <p class="text-gray-600 leading-relaxed">{{ vision_mission.mission_text }}</p>
-            </div>
-          {% endif %}
-        </div>
+    <!-- Vision -->
+    <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
+      {% if vision_mission.vision_image %}
+        <img src="{{ vision_mission.vision_image.url }}" alt="{{ vision_mission.vision_title }}" class="w-full h-[220px] object-cover">
       {% else %}
-        <ul class="space-y-3 text-gray-600 leading-relaxed">
-          <li>&middot; Quality First: Proud 20-year zero-complaint record for Costco orders</li>
-          <li>&middot; Fabric Innovation: World-leading R&amp;D team driving textile breakthroughs</li>
-          <li>&middot; Smart Manufacturing: Fully automated production lines for precision efficiency</li>
-          <li>&middot; Best Value: Factory-direct pricing with optimized supply chain advantages</li>
-        </ul>
-        <p class="text-gray-600 leading-relaxed mt-4">
-          From fabric development to finished product, delivering both exceptional value and reliable performance.
-        </p>
+        <div class="w-full h-[220px] bg-brand-red/5 flex items-center justify-center">
+          <svg class="w-10 h-10 text-brand-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                  d="M12 2l3 6 6 .9-4.5 4.4 1 6.2L12 16.8 6.5 19.5l1-6.2L3 8.9l6-.9z"/>
+          </svg>
+        </div>
       {% endif %}
+      <div class="p-6 md:p-8">
+        <h4 class="font-heading text-lg font-bold text-brand-dark mb-2">{{ vision_mission.vision_title }}</h4>
+        <p class="font-sans text-sm text-gray-600 leading-relaxed">{{ vision_mission.vision_text }}</p>
+      </div>
     </div>
+
+    <!-- Mission -->
+    <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
+      {% if vision_mission.mission_image %}
+        <img src="{{ vision_mission.mission_image.url }}" alt="{{ vision_mission.mission_title }}" class="w-full h-[220px] object-cover">
+      {% else %}
+        <div class="w-full h-[220px] bg-brand-red/5 flex items-center justify-center">
+          <svg class="w-10 h-10 text-brand-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 21V4m0 0h11l-2 4 2 4H5"/>
+          </svg>
+        </div>
+      {% endif %}
+      <div class="p-6 md:p-8">
+        <h4 class="font-heading text-lg font-bold text-brand-dark mb-2">{{ vision_mission.mission_title }}</h4>
+        <p class="font-sans text-sm text-gray-600 leading-relaxed">{{ vision_mission.mission_text }}</p>
+      </div>
+    </div>
+
   </div>
 </section>
+{% endif %}
 
-<!-- ============ BACK TO TOP ============ -->
-<!-- <button
-  onclick="window.scrollTo({top:0, behavior:'smooth'})"
-  class="fixed bottom-24 right-6 w-11 h-11 bg-brand-red text-white flex items-center justify-center shadow-lg hover:opacity-90 transition-opacity z-40"
-  aria-label="Back to top"
->
-  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-    <polyline points="18 15 12 9 6 15"/>
-  </svg>
-</button> -->
+<!-- ============ WHY CHOOSE US ============ -->
+{% if why_choose_us %}
+<section class="max-w-[1300px] mx-auto px-6 pb-20 md:pb-24">
+  <div class="flex items-center gap-3 mb-10">
+    <span class="w-6 h-0.5 bg-brand-red"></span>
+    <h2 class="font-heading text-2xl md:text-3xl font-bold text-brand-dark">Why Choose Us</h2>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    {% for card in why_choose_us %}
+      <div class="bg-white rounded-2xl shadow-sm p-7">
+        <div class="w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center mb-5">
+          {% if card.icon == 'globe' %}
+            <svg class="w-5 h-5 text-brand-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="9" stroke-width="1.5"/>
+              <path stroke-linecap="round" stroke-width="1.5" d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18"/>
+            </svg>
+          {% elif card.icon == 'shield' %}
+            <svg class="w-5 h-5 text-brand-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                    d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4"/>
+            </svg>
+          {% else %}
+            <svg class="w-5 h-5 text-brand-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                    d="M12 2l3 6 6 .9-4.5 4.4 1 6.2L12 16.8 6.5 19.5l1-6.2L3 8.9l6-.9z"/>
+            </svg>
+          {% endif %}
+        </div>
+        <h4 class="font-heading font-bold text-brand-dark mb-2">{{ card.title }}</h4>
+        <p class="font-sans text-sm text-gray-600 leading-relaxed">{{ card.description }}</p>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
 {% endblock %}

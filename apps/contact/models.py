@@ -2,17 +2,16 @@ from django.db import models
 
 # Create your models here.
 
-class Enquiry(models.Model):
-    name         = models.CharField(max_length=100)
-    email        = models.EmailField()
-    phone        = models.CharField(max_length=20, blank=True)
-    message      = models.TextField()
-    submitted_at = models.DateTimeField(auto_now_add=True)
+class ContactUs(models.Model):
+    email  = models.EmailField()
+    phone   = models.CharField(max_length=20, blank=True,null=True)
+    address = models.CharField(max_length=150,null=True,blank=True)
+    image = models.ImageField(upload_to='contact/',blank=True,null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
 
     class Meta:
-        verbose_name_plural = 'Enquiries'
-        ordering = ['-submitted_at']
+        verbose_name_plural = 'ContactUs'
+        ordering = ['-created_at']
 
-    def __str__(self):
-        return f"{self.name} — {self.submitted_at.strftime('%d %b %Y')}"
+    

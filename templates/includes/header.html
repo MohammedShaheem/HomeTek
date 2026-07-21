@@ -19,6 +19,9 @@
     <a href="{% url 'about' %}"
       class="{% if request.resolver_match.url_name == 'about' %}text-neutral-900{% else %}text-neutral-500{% endif %} hover:text-orange-500">ABOUT US</a>
 
+    <a href="{% url 'contact' %}"
+      class="{% if request.resolver_match.url_name == 'contact' %}text-neutral-900{% else %}text-neutral-500{% endif %} hover:text-orange-500">CONTACT US</a>
+
   </nav>
 
   <button id="mobileMenuBtn" class="md:hidden" aria-label="Toggle menu">
