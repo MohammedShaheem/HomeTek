@@ -24,11 +24,7 @@ A Django-powered home textiles informational website with a fully admin-controll
 - **Backend:** Python / Django
 - **Database:** MySQL
 - **Frontend:** Django Templates + Tailwind CSS v4 (standalone CLI, no Node.js required)
-- **Fonts:** Baloo 2 (headings), Quicksand (body)
-- **Brand colors:**
-  - `brand-red` — `#e33b4e`
-  - `brand-dark` — `#1a1a1a`
-  - `brand-gold` — `#B8934F`
+
 
 ---
 
