@@ -6,31 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{% block title %}HOMETEX{% endblock %}</title>
 
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              red: '#e33b4e',
-              dark: '#1a1a1a',
-              gold: '#B8934F',
-            }
-          },
-          fontFamily: {
-            sans: ['"Quicksand"', '"Helvetica Neue"', 'Arial', 'sans-serif'],
-            heading: ['"Baloo 2"', '"Quicksand"', 'sans-serif'],
-          }
-        }
-      }
-    }
-  </script>
+  {% load static %}
+<link rel="stylesheet" href="{% static 'css/tailwind.css' %}">
 
   <style>
     .ph {

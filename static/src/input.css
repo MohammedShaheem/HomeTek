@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+
+@source "./templates";
+
+@theme {
+  --color-brand-red: #e33b4e;
+  --color-brand-dark: #1a1a1a;
+  --color-brand-gold: #B8934F;
+
+  --font-sans: "Quicksand", "Helvetica Neue", Arial, sans-serif;
+  --font-heading: "Baloo 2", "Quicksand", sans-serif;
+}
