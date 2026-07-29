@@ -54,7 +54,7 @@
         {% if company.about_text %}
           {{ company.about_text|linebreaks }}
         {% else %}
-          <p>{{ company.name|default:"HENIEMO" }} specializes in home textile products' R&amp;D, manufacturing and marketing.</p>
+          <p>{{ company.name|default:"" }} specializes in home textile products' R&amp;D, manufacturing and marketing.</p>
         {% endif %}
       </div>
 
