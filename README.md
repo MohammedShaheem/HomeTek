@@ -1,4 +1,4 @@
-# HomeTex (HENIEMO)
+# HomeTex 
 
 A Django-powered home textiles informational website with a fully admin-controlled CMS. Content editors manage pages (About, Why Choose Us, Company Profile, Blog, Product Categories, Contact) directly through the Django admin, with no need to touch templates for routine content updates.
 
