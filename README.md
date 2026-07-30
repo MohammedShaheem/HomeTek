@@ -30,7 +30,6 @@ A Django-powered home textiles informational website with a fully admin-controll
 
 ## Project Structure
 
-```
 Home Tex/
 ├── manage.py
 ├── requirements.txt
@@ -46,16 +45,19 @@ Home Tex/
 │   └── includes/
 │       ├── header.html
 │       └── footer.html
-├── <app_name>/
-│   ├── models.py
-│   ├── views.py
-│   ├── urls.py
-│   └── templates/<app_name>/...
+├── apps/
+│   ├── <app_name_1>/
+│   │   ├── models.py
+│   │   ├── views.py
+│   │   ├── urls.py
+│   │   └── templates/<app_name_1>/...
+│   ├── <app_name_2>/
+│   │   ├── models.py
+│   │   ├── views.py
+│   │   ├── urls.py
+│   │   └── templates/<app_name_2>/...
+│   └── ...
 └── ...
-```
-
-> Adjust the app-level folders above to match your actual Django apps (e.g. `blog`, `products`, `pages`, `core`, etc.).
-
 ---
 
 ## Local Setup
