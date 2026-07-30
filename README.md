@@ -1,4 +1,4 @@
-# HomeTex 
+# HomeTex (HENIEMO)
 
 A Django-powered home textiles informational website with a fully admin-controlled CMS. Content editors manage pages (About, Why Choose Us, Company Profile, Blog, Product Categories, Contact) directly through the Django admin, with no need to touch templates for routine content updates.
 
@@ -24,12 +24,11 @@ A Django-powered home textiles informational website with a fully admin-controll
 - **Backend:** Python / Django
 - **Database:** MySQL
 - **Frontend:** Django Templates + Tailwind CSS v4 (standalone CLI, no Node.js required)
-
-
 ---
 
 ## Project Structure
 
+```
 Home Tex/
 ├── manage.py
 ├── requirements.txt
@@ -58,6 +57,7 @@ Home Tex/
 │   │   └── templates/<app_name_2>/...
 │   └── ...
 └── ...
+```
 ---
 
 ## Local Setup
@@ -147,7 +147,7 @@ This project uses **Tailwind CSS v4** via the **standalone CLI** — no Node.js,
   @import "tailwindcss";
 
   @source "./templates";
-  @source "./**/templates";
+  @source "./apps/**/templates";
 
   @theme {
     --color-brand-red: #e33b4e;
@@ -254,10 +254,8 @@ Log in using the superuser credentials created earlier.
 - Ensure the production web server (e.g. Nginx/Apache) is configured to serve files from `STATIC_ROOT` at the `STATIC_URL` path.
 - No Node.js, npm, or Tailwind CLI installation is required on the production server.
 
+
 ---
-
-
-
 ## Notes for Future Contributors
 
 - This project intentionally avoids a Node.js-based frontend build pipeline to keep the deployment footprint simple for a Django-only hosting environment.
